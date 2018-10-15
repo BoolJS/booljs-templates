@@ -1,0 +1,47 @@
+{
+  "name": "@booljs/templates",
+  "version": "1.0.0",
+  "description": "BoolJS Template for API (Users & Auth)",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "pretest": "eslint \"**/*.js\"",
+    "test": "cross-env NODE_ENV=test mocha --exit --timeout 15000 test/_.js test/*"
+  },
+  "author": "Pablo Andrés Dorado Suárez <hola@pablodorado.com>",
+  "license": "MIT",
+  "dependencies": {
+    "bcrypt": "^3.0.1",
+    "booljs": "^0.7.16",
+    "booljs.mongoose": "^0.4.0",
+    "booljs.oauth2": "^0.2.0",
+    "booljs.passport": "^0.2.1",
+    "crypto": "^1.0.1",
+    "es-promisify": "^1.1.2",
+    "faker": "^4.1.0",
+    "moment": "^2.22.2",
+    "mongoose": "^5.3.3",
+    "mongoose-deep-populate": "^3.1.1",
+    "mongoose-hidden": "^1.6.0",
+    "oauth2orize": "^1.11.0",
+    "passport": "^0.4.0",
+    "passport-http": "^0.3.0",
+    "passport-http-bearer": "^1.0.1",
+    "passport-oauth2-client-password": "^0.1.2"
+  },
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "chai-as-promised": "^7.1.1",
+    "cross-env": "^5.2.0",
+    "eslint": "^5.5.0",
+    "eslint-config-standard": "^12.0.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-node": "^7.0.1",
+    "eslint-plugin-promise": "^4.0.0",
+    "eslint-plugin-standard": "^4.0.0",
+    "mocha": "^5.2.0",
+    "snazzy": "^8.0.0",
+    "standard-engine": "^10.0.0",
+    "supertest": "^3.1.0"
+  }
+}

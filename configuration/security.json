@@ -1,0 +1,16 @@
+{
+    "passport": {
+        "strategies": [
+            "basic",
+            "bearer",
+            "clientPassword"
+        ],
+        "defaultStrategy": "bearer",
+        "strategyOptions": {
+            "session": false
+        }
+    },
+    "token": {
+        "expiresIn": 31536000
+    }
+}

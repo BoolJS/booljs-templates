@@ -1,0 +1,14 @@
+{
+    "development": {
+        "host": "localhost",
+        "database": "sample"
+    },
+    "test": {
+        "host": "localhost",
+        "database": "sample-test"
+    },
+    "development": {
+        "host": "localhost",
+        "database": "sample"
+    }
+}
