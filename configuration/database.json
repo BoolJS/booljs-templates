@@ -7,7 +7,7 @@
         "host": "localhost",
         "database": "sample-test"
     },
-    "development": {
+    "production": {
         "host": "localhost",
         "database": "sample"
     }

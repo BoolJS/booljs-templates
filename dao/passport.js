@@ -25,7 +25,7 @@ module.exports = class PassportDAO {
                 const token = await new Token().find(accessToken);
                 const user = token && await new User().find(token.user);
 
-                done(null, user !== undefined
+                done(null, user !== undefined && user !== null
                     ? {
                         ...user.toObject(),
                         permissions: (_
@@ -49,7 +49,8 @@ module.exports = class PassportDAO {
 
             done(null, client || false);
         } catch (error) {
-            done(error);
+            log.error(error);
+            done(null, false);
         }
     }
 

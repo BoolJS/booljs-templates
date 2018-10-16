@@ -3,11 +3,13 @@
 const clear = require('./clear');
 const add = require('./add');
 
-module.exports = async api => {
+module.exports = async (api, doClear = true) => {
     const app = api.app;
 
     // Clearing database information
-    await clear(app);
+    if (doClear) {
+        await clear(app);
+    }
     // Adding client
     await add(app, 'client');
 
