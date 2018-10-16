@@ -4,8 +4,8 @@ const MongooseModel = require('booljs.mongoose/model');
 
 module.exports = class UserModel extends MongooseModel {
     constructor (app, { Schema, connection }) {
-        const { CrudMongoose } = app.plugins;
-        const { Bcrypt, EsPromisify } = app.utilities;
+        const { Error, CrudMongoose } = app.plugins;
+        const { Bcryptjs, EsPromisify } = app.utilities;
         const { Mongoose, MongooseDeepPopulate, MongooseHidden } =
             app.utilities;
 
@@ -45,7 +45,13 @@ module.exports = class UserModel extends MongooseModel {
 
             try {
                 const { _id, mail } = this;
-                const user = await User.one({ $or: [ { _id }, { mail } ] });
+
+                let user;
+                try {
+                    user = await User.one({ $or: [ { _id }, { mail } ] });
+                } catch (_) {
+                    user = undefined;
+                }
 
                 if (this.isNew && user !== undefined && user !== null) {
                     if (this.mail === user.mail) {
@@ -62,24 +68,31 @@ module.exports = class UserModel extends MongooseModel {
             }
         });
 
+        userSchema.static.one = async function (query, fields, options) {
+            const object = await this.validateQuery(() =>
+                this.findOne(query, fields, options)
+                    .deepPopulate('roles')
+                    .exec());
+
+            if (object === undefined || object === null) {
+                throw new Error(404, 'E_NOT_FOUND');
+            }
+
+            return object;
+        };
+
         super(userSchema);
         this.BCrypt = {
-            compare: EsPromisify(Bcrypt.compare, Bcrypt),
-            genSalt: EsPromisify(Bcrypt.genSalt, Bcrypt),
-            hash: EsPromisify(Bcrypt.hash, Bcrypt)
+            compare: EsPromisify(Bcryptjs.compare, Bcryptjs),
+            genSalt: EsPromisify(Bcryptjs.genSalt, Bcryptjs),
+            hash: EsPromisify(Bcryptjs.hash, Bcryptjs)
         };
     }
 
     static list (query, fields, options) {
-        return this.find(query, fields, options)
+        return this.validateQuery(() => this.find(query, fields, options)
             .deepPopulate('roles')
-            .exec();
-    };
-
-    static one (query, fields, options) {
-        return this.findOne(query, fields, options)
-            .deepPopulate('roles')
-            .exec();
+            .exec());
     };
 
     async hashPassword () {

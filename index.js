@@ -6,11 +6,9 @@ const Bool = require('booljs');
 module.exports = (async () => {
     try {
         return new Bool('com.example.api', [
-            'booljs.express',
-
-            'mongoose', 'booljs.mongoose', 'bcrypt', 'crypto', 'lodash',
+            'mongoose', 'booljs.mongoose', 'bcryptjs', 'crypto', 'lodash',
             'mongoose-deep-populate', 'mongoose-hidden',
-            'moment', 'es-promisify',
+            'mongoose-geojson-schema', 'moment', 'es-promisify',
 
             'booljs.passport', 'booljs.oauth2',
             'passport-http', 'passport-http-bearer',

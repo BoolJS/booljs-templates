@@ -16,7 +16,7 @@ module.exports = class OAuth2DAO {
                     const login = user !== undefined
                         ? await user.login(password)
                         : false;
-                    const token = login !== undefined
+                    const token = login !== undefined && login
                         ? await new Token().insert(user.id, client.id)
                         : false;
 
@@ -25,8 +25,13 @@ module.exports = class OAuth2DAO {
                             ? { scope: user.permissions || false }
                             : false);
                 } catch (error) {
-                    log.debug(error);
-                    done(error);
+                    log.error(error);
+
+                    if (error.status === 404) {
+                        return done(null, false);
+                    }
+
+                    return done(error);
                 }
             }
         ));

@@ -2,7 +2,9 @@
 
 // Configure test environment
 process.env.HOST = process.env.HOSTNAME = '0.0.0.0';
-process.env.NODE_ENV = process.env.TEST_ENV || process.env.NODE_ENV || 'test';
+
+const defaultEnv = process.env.CI ? 'ci-test' : 'test';
+process.env.NODE_ENV = process.env.TEST_ENV || process.env.NODE_ENV || defaultEnv;
 
 // Boot application
 require('..');
